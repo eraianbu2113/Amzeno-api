@@ -86,6 +86,21 @@ app.get("/newusers", (req, res) => {
 
 /**
  * @swagger
+ * /Reminder:
+ *   get:
+ *     summary: Get Reminderdata
+ *     responses:
+ *       200:
+ *         description: Success
+ */
+
+app.get("/Reminder", (req, res) => {
+    const Amzeno = readData();
+    res.json(Amzeno.Reminder);
+});
+
+/**
+ * @swagger
  * /meetings:
  *   post:
  *     summary: Add a new meeting
@@ -147,6 +162,78 @@ app.post("/events",(req,res)=>{
         data: newevents
     });
 });
+
+/**
+ * @swagger
+ * /Reminder:
+ *   post:
+ *     summary: Add a new reminder
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *     responses:
+ *       201:
+ *         description: User created
+ */
+app.post("/Reminder",(req,res)=>{
+    const Amzeno_db=readData();
+     const newReminder={
+        id:Date.now().toString(),
+        ...req.body
+     };
+     Amzeno_db.Reminder.push(newReminder);
+
+     writeData(Amzeno_db);
+
+     
+    res.status(201).json({
+        message: "User Added Successfully",
+        data: newReminder
+    });
+});
+
+/**
+ * @swagger
+ * /Reminder/{id}:
+ *   delete:
+ *     summary: Delete a meeting
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Meeting deleted successfully
+ */
+app.delete("/Reminder/:id", (req, res) => {
+
+    const Amzeno_bd = readData();
+
+    const id = req.params.id;
+
+    const index = Amzeno_bd.Reminder.findIndex(Reminder => Reminder.id === id);
+
+    if (index === -1) {
+        return res.status(404).json({
+            message: "Meeting not found"
+        });
+    }
+
+    Amzeno_bd.Reminder.splice(index, 1);
+
+    writeData(Amzeno_bd);
+
+    res.json({
+        message: "Meeting deleted successfully"
+    });
+
+});
+
 
 /**
  * @swagger

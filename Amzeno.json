@@ -35,12 +35,6 @@
       "meetingDate": "2026-06-30",
       "meetingduraction": "20mis",
       "id": "yKHBTBDFAaY"
-    },
-    {
-      "id": "1782893536912",
-      "meetingtitle": "anbu",
-      "meetingDate": "2026-07-02",
-      "meetingduraction": "20mins"
     }
   ],
   "events": [
@@ -111,6 +105,7 @@
       "date": "2026-07-02"
     }
   ],
+  "Reminder": [],
   "newusers": [
     {
       "userId": 0,
