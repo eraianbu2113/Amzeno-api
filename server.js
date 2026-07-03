@@ -195,6 +195,37 @@ app.post("/Reminder",(req,res)=>{
     });
 });
 
+ /** @swagger
+ * /weeklychart:
+ *   post:
+ *     summary: Add a new reminder
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *     responses:
+ *       201:
+ *         description: User created
+ */
+app.post("/weeklychart",(req,res)=>{
+    const Amzeno_db=readData();
+     const newweeklychart={
+        id:Date.now().toString(),
+        ...req.body
+     };
+     Amzeno_db.weeklychart.push(newweeklychart);
+
+     writeData(Amzeno_db);
+
+     
+    res.status(201).json({
+        message: "User Added Successfully",
+        data: newweeklychart
+    });
+});
+
 /**
  * @swagger
  * /Reminder/{id}:

@@ -35,6 +35,24 @@
       "meetingDate": "2026-06-30",
       "meetingduraction": "20mis",
       "id": "yKHBTBDFAaY"
+    },
+    {
+      "id": "1783063449322",
+      "meetingtitle": "test3",
+      "meetingDate": "2026-07-03",
+      "meetingduraction": "20mins"
+    },
+    {
+      "id": "1783063678693",
+      "meetingtitle": "hhhhh",
+      "meetingDate": "2026-07-03",
+      "meetingduraction": "20mins"
+    },
+    {
+      "id": "1783064087502",
+      "meetingtitle": "test3",
+      "meetingDate": "2026-07-03",
+      "meetingduraction": "20mins"
     }
   ],
   "events": [
@@ -103,9 +121,59 @@
       "title": "anbu",
       "time": "11:12",
       "date": "2026-07-02"
+    },
+    {
+      "id": "1783059774973",
+      "title": "gym",
+      "time": "18:00",
+      "date": "2026-07-03"
     }
   ],
   "Reminder": [],
+  "weeklychart": [
+    {
+      "id": "1783063452809",
+      "Day": "Fri",
+      "task": "",
+      "focus": "",
+      "meetings": 5
+    },
+    {
+      "id": "1783064539289",
+      "Day": "Fri",
+      "task": "",
+      "focus": "",
+      "meetings": 7
+    },
+    {
+      "id": "1783064554492",
+      "Day": "Fri",
+      "task": "",
+      "focus": "",
+      "meetings": 7
+    },
+    {
+      "id": "1783064632195",
+      "Day": "Fri",
+      "task": "",
+      "focus": "",
+      "meetings": 7
+    },
+    {
+      "id": "1783064638669",
+      "Day": "Fri",
+      "task": "",
+      "focus": "",
+      "meetings": 7
+    },
+    {
+      "id": "1783064765082",
+      "Day": "Fri",
+      "task": "",
+      "focus": "",
+      "meetings": 7
+    }
+  ],
   "newusers": [
     {
       "userId": 0,
