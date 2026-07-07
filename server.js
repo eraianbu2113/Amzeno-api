@@ -57,6 +57,20 @@ app.get("/meetings", (req, res) => {
 
 /**
  * @swagger
+ * /Notes:
+ *   get:
+ *     summary: Get all Notes
+ *     responses:
+ *       200:
+ *         description: Success
+ */
+app.get("/Notes", (req, res) => {
+    const Amzeno = readData();
+    res.json(Amzeno.Notes);
+});
+
+/**
+ * @swagger
  * /events:
  *   get:
  *     summary: Get all bus schedules
@@ -133,6 +147,38 @@ app.post("/meetings",(req,res)=>{
 
 /**
  * @swagger
+ * /Notes:
+ *   post:
+ *     summary: Add a new Notes
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *     responses:
+ *       201:
+ *         description: User created
+ */
+app.post("/Notes",(req,res)=>{
+    const Amzeno_db=readData();
+     const newNotes={
+        id:Date.now().toString(),
+        ...req.body
+     };
+     Amzeno_db.Notes.push(newNotes);
+
+     writeData(Amzeno_db);
+
+     
+    res.status(201).json({
+        message: "User Added Successfully",
+        data: newNotes
+    });
+});
+
+/**
+ * @swagger
  * /meetings:
  *   put:
  *     summary: update a  meeting
@@ -170,6 +216,47 @@ app.put("/meetings/:id",(req,res)=>{
         data: Amzeno_db.meetings[index]
     });
 });
+
+/**
+ * @swagger
+ * /Notes:
+ *   put:
+ *     summary: update a  Notes
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *     responses:
+ *       201:
+ *         description: User created
+ */
+app.put("/Notes/:id",(req,res)=>{
+    const Amzeno_db=readData();
+    const id = req.params.id;
+    const index = Amzeno_db.Notes.findIndex(
+        Notes => Notes.id === id
+    );
+    if (index === -1) {
+        return res.status(404).json({
+            message: "Meeting not found"
+        });
+    }
+    Amzeno_db.Notes[index] = {
+        ...Amzeno_db.Notes[index],
+        ...req.body,
+        id: id // Keep the same ID
+    };
+
+    writeData(Amzeno_db);
+
+    res.status(200).json({
+        message: "Notes Updated Successfully",
+        data: Amzeno_db.Notes[index]
+    });
+});
+
 
 /**
  * @swagger
@@ -304,6 +391,47 @@ app.delete("/Reminder/:id", (req, res) => {
     });
 
 });
+
+
+/**
+ * @swagger
+ * /Notes/{id}:
+ *   delete:
+ *     summary: Delete a Notes
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Meeting deleted successfully
+ */
+app.delete("/Notes/:id", (req, res) => {
+
+    const Amzeno_bd = readData();
+
+    const id = req.params.id;
+
+    const index = Amzeno_bd.Notes.findIndex(Notes => Notes.id === id);
+
+    if (index === -1) {
+        return res.status(404).json({
+            message: "Meeting not found"
+        });
+    }
+
+    Amzeno_bd.Notes.splice(index, 1);
+
+    writeData(Amzeno_bd);
+
+    res.json({
+        message: "Meeting deleted successfully"
+    });
+
+});
+
 
 
 /**
