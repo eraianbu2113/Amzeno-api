@@ -133,6 +133,46 @@ app.post("/meetings",(req,res)=>{
 
 /**
  * @swagger
+ * /meetings:
+ *   put:
+ *     summary: update a  meeting
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *     responses:
+ *       201:
+ *         description: User created
+ */
+app.put("/meetings/:id",(req,res)=>{
+    const Amzeno_db=readData();
+    const id = req.params.id;
+    const index = Amzeno_db.meetings.findIndex(
+        meeting => meeting.id === id
+    );
+    if (index === -1) {
+        return res.status(404).json({
+            message: "Meeting not found"
+        });
+    }
+    Amzeno_db.meetings[index] = {
+        ...Amzeno_db.meetings[index],
+        ...req.body,
+        id: id // Keep the same ID
+    };
+
+    writeData(Amzeno_db);
+
+    res.status(200).json({
+        message: "Meeting Updated Successfully",
+        data: Amzeno_db.meetings[index]
+    });
+});
+
+/**
+ * @swagger
  * /events:
  *   post:
  *     summary: Add a new events
